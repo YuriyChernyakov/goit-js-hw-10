@@ -9,7 +9,7 @@ const DEBOUNCE_DELAY = 300;
 const refs = {
   input: document.querySelector('#search-box'),
   countryList: document.querySelector('.country-list'),
-  countryInfo: document.querySelector('.country-info'),
+countryInfo: document.querySelector('.country-info'),
 };
 
 refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
@@ -24,11 +24,13 @@ function onInput(event) {
 
   fetchCountries(countries)
     .then(renderCountriesInfo)
-    .catch(error => Notify.failure('Oops, there is no country with that name'));
+      .catch(error => {
+          Notify.failure('Oops, there is no country with that name')
+      });
 }
 
 function renderCountriesInfo(countries) {
-  if (countries.length > 10) {
+    if (countries.length > 10) {
     Notify.info('Too many matches found. Please enter a more specific name.');
     refs.innerHTML = '';
   }
